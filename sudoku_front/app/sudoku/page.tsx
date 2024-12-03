@@ -5,9 +5,9 @@ const SudokuSolver = () => {
   const [grid, setGrid] = useState(Array(9).fill(0).map(() => Array(9).fill(0)));
   const [solution, setSolution] = useState<number[][] | null>(null);
   const [algorithm, setAlgorithm] = useState('backtracking');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const updateCell = (row : any, col : any, value : any) => {
+  const updateCell = (row: number, col: number, value: string) => {
     const newGrid = [...grid];
     newGrid[row][col] = value === '' ? 0 : parseInt(value);
     setGrid(newGrid);
@@ -34,9 +34,9 @@ const SudokuSolver = () => {
       const data = await response.json();
       setSolution(data.solution);
       setError(null);
-    } catch (error : any) {
+    } catch (error) {
       console.error('Error solving Sudoku:', error);
-      setError(error.message);
+      setError((error as Error).message);
       setSolution(null);
     }
   };
@@ -53,8 +53,8 @@ const SudokuSolver = () => {
       
       {/* Sudoku Grid */}
       <div className="grid grid-cols-9 gap-1 mb-4">
-        {grid.map((row : any , rowIndex : any) => 
-          row.map((cell : any, colIndex : any) => (
+        {grid.map((row , rowIndex ) => 
+          row.map((cell, colIndex ) => (
             <input
               key={`${rowIndex }-${colIndex}`}
               type="number"
@@ -110,8 +110,8 @@ const SudokuSolver = () => {
         <div className="mt-4">
           <h2 className="text-xl font-semibold mb-2">Solution:</h2>
           <div className="grid grid-cols-9 gap-1">
-            {solution.map((row : any, rowIndex : any) => 
-              row.map((cell : any, colIndex : any) => (
+            {solution.map((row , rowIndex ) => 
+              row.map((cell , colIndex ) => (
                 <div
                   key={`${rowIndex}-${colIndex}`}
                   className="w-10 h-10 text-center border border-gray-300 bg-green-100"
