@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 
 const SudokuSolver = () => {
-  const [grid, setGrid] = useState(Array(9).fill().map(() => Array(9).fill(0)));
-  const [solution, setSolution] = useState(null);
+  const [grid, setGrid] = useState(Array(9).fill(0).map(() => Array(9).fill(0)));
+  const [solution, setSolution] = useState<number[][] | null>(null);
   const [algorithm, setAlgorithm] = useState('backtracking');
   const [error, setError] = useState(null);
 
@@ -42,7 +42,7 @@ const SudokuSolver = () => {
   };
 
   const clearGrid = () => {
-    setGrid(Array(9).fill().map(() => Array(9).fill(0)));
+    setGrid(Array(9).fill(0).map(() => Array(9).fill(0)));
     setSolution(null);
     setError(null);
   };
@@ -53,10 +53,10 @@ const SudokuSolver = () => {
       
       {/* Sudoku Grid */}
       <div className="grid grid-cols-9 gap-1 mb-4">
-        {grid.map((row, rowIndex) => 
-          row.map((cell, colIndex) => (
+        {grid.map((row : any , rowIndex : any) => 
+          row.map((cell : any, colIndex : any) => (
             <input
-              key={`${rowIndex}-${colIndex}`}
+              key={`${rowIndex }-${colIndex}`}
               type="number"
               min="0"
               max="9"
